@@ -4,8 +4,13 @@
 
 <template>
     <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+        <img src="../assets/images/Logo.png" alt="Logo">
+        <RouterLink class="first" to="/">Home</RouterLink>
+        <RouterLink to="/about">Projects</RouterLink>
+        <RouterLink to="/about">What's new</RouterLink>
+        <RouterLink to="/about">Test</RouterLink>
+        <RouterLink to="/about">Link</RouterLink>
+        <RouterLink to="/about">About Me</RouterLink>
     </nav>
 </template>
 
@@ -17,12 +22,25 @@
 nav {
     display: flex;
     flex-wrap: wrap;
+    justify-content: left;
 }
 
 a {
-    flex-basis: auto;
+    color: #686868;
+    padding-right: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: large;
+    text-decoration: none;
 }
-</style>
+.first{
+    font-weight: bold;
+    color: #dddd;
+}
 
-<!-- this is a test -->
-<!-- this is another test -->
+img {
+    padding: 0 4rem;
+}
+
+
+</style>
