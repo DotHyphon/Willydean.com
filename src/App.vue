@@ -2,13 +2,10 @@
 import { createApp } from 'vue';
 import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
-import ScrollingRow from './components/ScrollingRow.vue'
 </script>
 
 <template>
-  <header>
-    <NavBar />
-  </header>
+  <NavBar />
 
   <RouterView />
 </template>
@@ -25,7 +22,7 @@ export default {
 <!--
   git add *
   git commit -m "'comment'"
-  git push origin master
+  git push origin main
   -->
 
   <!-- colour pallete

@@ -20,9 +20,17 @@
 
 <style scoped>
 nav {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    background-color: #161616;
+    z-index: 2;
 }
 
 a {
@@ -39,7 +47,7 @@ a {
 }
 
 img {
-    padding: 0 4rem;
+    padding: 0 4.7rem;
 }
 
 
