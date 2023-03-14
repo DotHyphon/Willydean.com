@@ -13,3 +13,9 @@ import NavBar from './components/NavBar.vue'
 
 <style scoped>
 </style>
+
+<!--
+  git add *
+  git commit -m "'comment'"
+  git push origin master
+  -->
