@@ -133,7 +133,7 @@ button{
 }
 .scrollRight{
     position: absolute;
-    right: 0;
+    right: 1rem;
     opacity: 0.4;
 }
 
