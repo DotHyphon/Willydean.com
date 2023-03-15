@@ -53,10 +53,10 @@ export default {
     },
     methods: {
         ScrollLeft() {
-            this.$el.children[1].children[2].scrollLeft -= 200;
+            this.$el.children[1].children[2].scrollLeft -= window.innerWidth*0.12;
         },
         ScrollRight(){
-            this.$el.children[1].children[2].scrollLeft += 200;
+            this.$el.children[1].children[2].scrollLeft += window.innerWidth*0.12;
         }
     },
     created(){
@@ -117,7 +117,8 @@ button{
     background-color: transparent;
     border-radius: 50%;
     border: none;
-    height: 8vw;
+    height: 12vw;
+    width: 8vw;
     z-index: 1;
 }
 /* remove scroll buttons for touch devices */
@@ -132,7 +133,7 @@ button{
 }
 .scrollRight{
     position: absolute;
-    right: 1rem;
+    right: 0;
     opacity: 0.4;
 }
 
