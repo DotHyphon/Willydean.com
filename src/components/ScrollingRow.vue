@@ -62,7 +62,6 @@ export default {
     },
     created(){
         this.images.forEach((image, index) => this.randomImage.push(this.images[Math.floor(Math.random()*this.images.length)]));
-        console.log(this.randomImage);
     }
 }
 </script>
