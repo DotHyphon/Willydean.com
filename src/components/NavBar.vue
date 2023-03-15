@@ -3,17 +3,20 @@
 </script>
 
 <template>
-    <nav id="Blank">
-        <img id="LargeLogo" src="https://willydean.com/assets/images/Logo.png" height="50" width="200" alt="Logo">
-        <img id="SmallLogo" src="https://willydean.com/assets/images/LogoSmall.png" height="50" width="80" alt="Logo">
-        <button @click="HideNav" id="NavSlider">></button>
-        <RouterLink id="Blank" class="bold" to="/">Home</RouterLink>
-        <RouterLink id="Blank" to="/about">Projects</RouterLink>
-        <RouterLink id="Blank" to="/about">What's new</RouterLink>
-        <RouterLink id="Blank" to="/about">Test</RouterLink>
-        <RouterLink id="Blank" to="/about">Link</RouterLink>
-        <RouterLink id="Blank" to="/about">About Me</RouterLink>
-    </nav>
+    <main>
+        <img id="LargeLogoTop" src="https://willydean.com/assets/images/Logo.png" height="50" width="200" alt="Logo">
+        <nav id="Blank">
+            <img id="LargeLogo" src="https://willydean.com/assets/images/Logo.png" height="50" width="200" alt="Logo">
+            <img id="SmallLogo" src="https://willydean.com/assets/images/LogoSmall.png" height="50" width="80" alt="Logo">
+            <button @click="HideNav" id="NavSlider">></button>
+            <RouterLink id="Blank" class="bold" to="/">Home</RouterLink>
+            <RouterLink id="Blank" to="/about">Projects</RouterLink>
+            <RouterLink id="Blank" to="/about">What's new</RouterLink>
+            <RouterLink id="Blank" to="/about">Test</RouterLink>
+            <RouterLink id="Blank" to="/about">Link</RouterLink>
+            <RouterLink id="Blank" to="/about">About Me</RouterLink>
+        </nav>
+    </main>
 </template>
 
 <script>
@@ -26,6 +29,9 @@
 @media (width >= 1000px){
     #SmallLogo {
         display:none;
+    }
+    #LargeLogoTop{
+        display: none;
     }
     nav {
     position: fixed;
@@ -53,6 +59,11 @@
     #LargeLogo {
         display: none;
     }
+    #LargeLogoTop{
+        position: absolute;
+        left: 50%;
+        margin-left: -100px;
+    }
     nav {
     position: fixed;
     top: 0;
@@ -62,7 +73,7 @@
     align-items: left;
     flex-direction:column;
     width: 0;
-    height: 100%;
+    height: 120%;
     background-color: #161616;
     z-index: 2;
     animation-fill-mode: forwards;
@@ -152,17 +163,18 @@ button {
 export default {
     methods: {
         HideNav(){
-            if (this.$el.id == "HideNav" || this.$el.id == "Blank") {
-                this.$el.id = "ShowNav";
+            this.$el.children[1];
+            if (this.$el.children[1].id == "HideNav" || this.$el.children[1].id == "Blank") {
+                this.$el.children[1].id = "ShowNav";
             } else {
-                this.$el.id = "HideNav";
+                this.$el.children[1].id = "HideNav";
             }
-            for(let i = 0; i < this.$el.children.length; i++){
-                let idName = this.$el.children[i].id;
+            for(let i = 0; i < this.$el.children[1].children.length; i++){
+                let idName = this.$el.children[1].children[i].id;
                 if (idName == "HideNav" || idName == "Blank"){
-                    this.$el.children[i].id = "ShowNav";
+                    this.$el.children[1].children[i].id = "ShowNav";
                 } else if (idName == "ShowNav") {
-                    this.$el.children[i].id = "HideNav";
+                    this.$el.children[1].children[i].id = "HideNav";
                 }
             }
         }

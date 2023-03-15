@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router';
             <button @click="ScrollLeft" class="scrollLeft"><img src='https://willydean.com/assets/images/ArrowLeft.png' placeholder="Arrow"></button>
             <button @click="ScrollRight" class="scrollRight"><img src='https://willydean.com/assets/images/ArrowRight.png' placeholder="Arrow"></button>
             <div class="scrollRow">
-                <img v-for="image in randomImage" :src="image" alt="">
+                <img id="poster" v-for="image in randomImage" :src="image" alt="">
             </div>
             
         </div>
@@ -81,16 +81,33 @@ h1 {
 img{
     padding: 0 0.2rem 0 0.2rem;
     scroll-snap-align: start;
-    height: 8vw;
+    height: 12vw;
     width: auto;
-
+    transition: all .2s ease-in-out;
+    transition-delay: 0.5s;
 }
 
+#poster:hover{
+    transform: scale(1.75);
+}
+
+.container{
+    padding: 100px 0;
+    margin: -100px 0;
+}
+
+/* container for the image carousel */
 .scrollRow{
     display: flex;
-    overflow-x:scroll;
-    scroll-snap-type: x mandatory;
     overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    padding: 100px 0;
+    margin: -100px 0;
+    
+}
+
+.scrollRow::-webkit-scrollbar {
+    display: auto;
 }
 
 button{
@@ -101,6 +118,13 @@ button{
     border-radius: 50%;
     border: none;
     height: 8vw;
+    z-index: 1;
+}
+/* remove scroll buttons for touch devices */
+@media (hover: none) and (pointer: coarse) {
+    button{
+        display: none;
+    }
 }
 .scrollLeft{
     position: absolute;
