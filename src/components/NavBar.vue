@@ -59,7 +59,7 @@
     justify-content: left;
     align-items: left;
     flex-direction:column;
-    width: 20%;
+    width: 10rem;
     height: 100%;
     background-color: #161616;
     z-index: 2;
