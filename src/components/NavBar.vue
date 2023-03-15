@@ -3,16 +3,16 @@
 </script>
 
 <template>
-    <nav id="">
+    <nav id="Blank">
         <img id="LargeLogo" src="https://willydean.com/assets/images/Logo.png" height="50" width="200" alt="Logo">
         <img id="SmallLogo" src="https://willydean.com/assets/images/LogoSmall.png" height="50" width="80" alt="Logo">
-        <button @click="HideNav" id="HideNav">Hide/Show</button>
-        <RouterLink id="" class="bold" to="/">Home</RouterLink>
-        <RouterLink id="" to="/about">Projects</RouterLink>
-        <RouterLink id="" to="/about">What's new</RouterLink>
-        <RouterLink id="" to="/about">Test</RouterLink>
-        <RouterLink id="" to="/about">Link</RouterLink>
-        <RouterLink id="" to="/about">About Me</RouterLink>
+        <button @click="HideNav" id="NavSlider">></button>
+        <RouterLink id="Blank" class="bold" to="/">Home</RouterLink>
+        <RouterLink id="Blank" to="/about">Projects</RouterLink>
+        <RouterLink id="Blank" to="/about">What's new</RouterLink>
+        <RouterLink id="Blank" to="/about">Test</RouterLink>
+        <RouterLink id="Blank" to="/about">Link</RouterLink>
+        <RouterLink id="Blank" to="/about">About Me</RouterLink>
     </nav>
 </template>
 
@@ -43,15 +43,17 @@
     img {
         margin-left: 4.7rem; 
     }
+    #NavSlider{
+        display: none;
+    }
 }
+
 /* Small/portrait screens */
-@media (width < 1000px){
+@media (width < 1000px) or (orientation: portrait){
     #LargeLogo {
         display: none;
     }
     nav {
-    animation-name: HideBar;
-    animation-duration: 2s;
     position: fixed;
     top: 0;
     left: 0;
@@ -59,7 +61,7 @@
     justify-content: left;
     align-items: left;
     flex-direction:column;
-    width: 10rem;
+    width: 0;
     height: 100%;
     background-color: #161616;
     z-index: 2;
@@ -67,16 +69,13 @@
     }
     a {
         padding-top: 2rem;
-        animation-name: Hide;
-        animation-duration: 2s;
+        visibility: hidden;
+        white-space: nowrap;
     }
     img {
-        margin-top: 1rem; 
-        margin-left: 0.5rem; 
-    }
-    button{
-        margin-right: auto;
-        padding-right: 2rem;
+        align-self: center;
+        padding-right: 3rem;
+        padding-top: 2rem;
     }
     nav#HideNav{
         animation-name: HideBar;
@@ -84,6 +83,14 @@
     }
     nav#ShowNav{
         animation-name: ShowBar;
+        animation-duration: 2s;
+    }
+    a#HideNav{
+        animation-name: Hide;
+        animation-duration: 2s;
+    }
+    a#ShowNav{
+        animation-name: Show;
         animation-duration: 2s;
     }
 } 
@@ -114,37 +121,28 @@ button {
     color: #dddd;
 }
 
-a#HideNav{
-    animation-name: Hide;
-    animation-duration: 2s;
-}
 
-a#ShowNav{
-    animation-name: Show;
-    animation-duration: 2s;
-}
-
-
-
-
+/* Animations */
 @keyframes Hide {
-    from {}
-    to { opacity: 0; }
+    from { opacity: 1; visibility: visible;}
+    30% {opacity: 0;}
+    to { opacity: 0; visibility: hidden; }
 }
 
 @keyframes Show {
-    from { opacity: 0;}
-    100% { opacity: 1;}
+    from { opacity: 0; visibility: hidden;}
+    20% {opacity: 0;}
+    to { opacity: 1; visibility: visible;}
 }
 
 @keyframes HideBar {
-    from {}
-    to { height: 10%; }
+    from {width: 10rem; }
+    to { width: 0; }
 }
 
 @keyframes ShowBar {
-    from { height: 10% }
-    to { height: 100%;}
+    from { width: 0 }
+    to { width: 10rem;}
 }
 
 
@@ -154,17 +152,17 @@ a#ShowNav{
 export default {
     methods: {
         HideNav(){
-            if (this.$el.id == "ShowNav" || this.$el.id == "") {
-                this.$el.id = "HideNav";
-            } else {
+            if (this.$el.id == "HideNav" || this.$el.id == "Blank") {
                 this.$el.id = "ShowNav";
+            } else {
+                this.$el.id = "HideNav";
             }
             for(let i = 0; i < this.$el.children.length; i++){
                 let idName = this.$el.children[i].id;
-                if (idName == "ShowNav" || idName == ""){
-                    this.$el.children[i].id = "HideNav";
-                } else if (idName == "HideNav") {
+                if (idName == "HideNav" || idName == "Blank"){
                     this.$el.children[i].id = "ShowNav";
+                } else if (idName == "ShowNav") {
+                    this.$el.children[i].id = "HideNav";
                 }
             }
         }

@@ -7,11 +7,10 @@ import { RouterLink } from 'vue-router';
     <section>
         <h1>{{ displayText }}</h1>
         <div class="container">
-            <button @click="ScrollLeft" class="scrollLeft">&lt</button>
-            <button @click="ScrollRight" class="scrollRight">></button>
+            <button @click="ScrollLeft" class="scrollLeft"><img src='https://willydean.com/assets/images/ArrowLeft.png' placeholder="Arrow"></button>
+            <button @click="ScrollRight" class="scrollRight"><img src='https://willydean.com/assets/images/ArrowRight.png' placeholder="Arrow"></button>
             <div class="scrollRow">
                 <img v-for="image in randomImage" :src="image" alt="">
-
             </div>
             
         </div>
@@ -73,6 +72,7 @@ section {
 }
 
 h1 {
+    font-size: 2vmin;
     display: block;
     color: #ddd;
     margin: 0.5rem;
@@ -81,12 +81,9 @@ h1 {
 img{
     padding: 0 0.2rem 0 0.2rem;
     scroll-snap-align: start;
-    max-width: 300px;
+    height: 8vw;
+    width: auto;
 
-}
-.container {
-    display: inline;
-    white-space: nowrap;
 }
 
 .scrollRow{
@@ -97,21 +94,30 @@ img{
 }
 
 button{
-    font-weight: bold;
+    font-weight:normal;
     font-size: xx-large;
     color: #686868;
-    background-color: #161616;
+    background-color: transparent;
     border-radius: 50%;
     border: none;
+    height: 8vw;
 }
 .scrollLeft{
     position: absolute;
-    margin-top: 5rem;
+    opacity: 0.4;
 }
 .scrollRight{
     position: absolute;
-    margin-top: 5rem;
     right: 1rem;
+    opacity: 0.4;
+}
+
+/* if small screen or portrait */
+@media (width < 1000px) or (orientation: portrait){
+    section {
+        padding-left: 1rem;
+        padding-top: 1rem;  
+    }
 }
 
 </style>
