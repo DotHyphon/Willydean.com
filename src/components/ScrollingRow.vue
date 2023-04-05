@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router';
             <button @click="ScrollLeft" class="scrollLeft"><img src='https://willydean.com/assets/images/ArrowLeft.png' placeholder="Arrow"></button>
             <button @click="ScrollRight" class="scrollRight"><img src='https://willydean.com/assets/images/ArrowRight.png' placeholder="Arrow"></button>
             <div class="scrollRow">
-                <img id="poster" v-for="image in randomImage" :src="image" alt="">
+                <component :is="link.blank ? 'span' : 'a'" v-for="link in localLinks" :href="link.url" target="_blank"><img id="poster" :src="link.image" alt=""></component>
             </div>
             
         </div>
@@ -22,10 +22,13 @@ import { RouterLink } from 'vue-router';
 export default {
     props: {
         displayText: String,
+        placeHolder: Boolean,
+        links: Array,
     },
     data(){
         return {
             rowPointer: {},
+            localLinks: [],
             randomImage: [],
             images: [
                 'https://willydean.com/assets/images/PH1.jpg',
@@ -60,7 +63,20 @@ export default {
         }
     },
     created(){
-        this.images.forEach((image, index) => this.randomImage.push(this.images[Math.floor(Math.random()*this.images.length)]));
+        let tempBool = this.placeHolder;
+        if (tempBool) {
+            this.images.forEach((image, index) => {
+                this.localLinks.push({
+                    title: "blank",
+                    url: '/',
+                    image: this.images[Math.floor(Math.random()*this.images.length)],
+                    blank: true,
+                });
+                
+            });
+        } else if (!tempBool) {
+            this.localLinks.push(...this.links);
+        }
     }
 }
 </script>
