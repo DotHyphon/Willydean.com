@@ -53,6 +53,12 @@ export default {
           image: "https://willydean.com/snakegame/preview.png",
           blank: false,
         },
+        {
+          title: "Nice Blog",
+          url: "https://willydean.com/blog",
+          image: "https://willydean.com/blog/preview.png",
+          blank: false,
+        },
       ]
     }
   },
