@@ -7,9 +7,9 @@ import { RouterLink } from 'vue-router';
     <section>
         <h1>{{ displayText }}</h1>
         <div class="container">
-            <button @click="ScrollLeft" class="scrollLeft"><img src='https://willydean.com/assets/images/ArrowLeft.png' placeholder="Arrow"></button>
-            <button @click="ScrollRight" class="scrollRight"><img src='https://willydean.com/assets/images/ArrowRight.png' placeholder="Arrow"></button>
-            <div class="scrollRow">
+            <!-- <button @click="ScrollLeft" class="scrollLeft"><img src='https://willydean.com/assets/images/ArrowLeft.png' placeholder="Arrow"></button> -->
+            <!-- <button @click="ScrollRight" class="scrollRight"><img src='https://willydean.com/assets/images/ArrowRight.png' placeholder="Arrow"></button> -->
+            <div class="scrollRow" @mousedown="StartScroll" @mousemove="Scroll" @mouseup="EndScroll" @touchstart="StartScroll" @touchmove="Scroll" @touchend="EndScroll">
                 <component :is="link.blank ? 'span' : 'a'" v-for="link in localLinks" :href="link.url" target="_blank"><img id="poster" :src="link.image" alt=""></component>
             </div>
             
@@ -27,6 +27,9 @@ export default {
     },
     data(){
         return {
+            checkScroll: false,
+            scroll: false,
+            scrollPositionX: 0,
             rowPointer: {},
             localLinks: [],
             randomImage: [],
@@ -55,14 +58,54 @@ export default {
         }
     },
     methods: {
-        ScrollLeft() {
-            this.$el.children[1].children[2].scrollLeft -= window.innerWidth*0.12;
+        StartScroll(e) {
+            this.checkScroll = true;
+            if (e.type == "touchstart") {
+                this.scrollPositionX = e.touches[0].clientX;
+            } else {
+                e.preventDefault();
+                this.scrollPositionX = e.clientX;
+            }
         },
-        ScrollRight(){
-            this.$el.children[1].children[2].scrollLeft += window.innerWidth*0.12;
-        }
+        Scroll(e) {
+            if (this.checkScroll && !this.scroll) {
+                if (e.type == "touchmove") {
+                    if (Math.abs(this.scrollPositionX - e.touches[0].clientX) > 20) {
+                        this.scrollPositionX = e.touches[0].clientX
+                        this.checkScroll = false;
+                        this.scroll = true;                    
+                    }
+                } else {
+                    e.preventDefault();
+                    if (Math.abs(this.scrollPositionX - e.clientX) > 20) {
+                        this.scrollPositionX = e.clientX
+                        this.checkScroll = false;
+                        this.scroll = true;                    
+                    }
+                }
+            } else if(this.scroll) {
+                let scrollX = 0;
+                if (e.type == "touchmove" ) {
+                    scrollX = this.scrollPositionX - e.touches[0].clientX;
+                    this.scrollPositionX = e.touches[0].clientX;
+                } else {
+                    e.preventDefault();
+                    scrollX = this.scrollPositionX - e.clientX;
+                    this.scrollPositionX = e.clientX;
+                }
+                this.$el.children[1].children[0].scrollLeft += scrollX;
+            }
+        },
+        EndScroll(e) {
+            this.scroll = false;
+        },
     },
     created(){
+        document.body.addEventListener('mouseup', this.EndScroll);
+        document.body.addEventListener('touchend', this.EndScroll);
+        document.body.addEventListener('mouseout', this.EndScroll);
+        document.body.addEventListener('mousemove', this.Scroll);
+        document.body.addEventListener('touchmove', this.Scroll);
         let tempBool = this.placeHolder;
         if (tempBool) {
             this.images.forEach((image, index) => {
@@ -84,7 +127,7 @@ export default {
 <style scoped>
 section {
     padding-left: 4rem;
-    padding-top: 1rem;
+    padding-top: 0.5rem;
 }
 
 h1 {
@@ -96,29 +139,25 @@ h1 {
 }
 img{
     padding: 0 0.2rem 0 0.2rem;
-    scroll-snap-align: start;
+    /* scroll-snap-align: start; */
     height: 12vw;
     width: auto;
     transition: all .2s ease-in-out;
     transition-delay: 0.5s;
 }
 
-#poster:hover{
+#poster:hover:not(:active){
     transform: scale(1.75);
 }
 
-.container{
-    padding: 100px 0;
-    margin: -100px 0;
-}
 
 /* container for the image carousel */
 .scrollRow{
     display: flex;
     overflow-x: hidden;
-    scroll-snap-type: x mandatory;
-    padding: 100px 0;
-    margin: -100px 0;
+    /* scroll-snap-type: x mandatory; */
+    padding: 10vw 0;
+    margin: -10vw 0;
     
 }
 
@@ -126,38 +165,11 @@ img{
     display: auto;
 }
 
-button{
-    font-weight:normal;
-    font-size: xx-large;
-    color: #686868;
-    background-color: transparent;
-    border-radius: 50%;
-    border: none;
-    height: 12vw;
-    width: 8vw;
-    z-index: 1;
-}
-/* remove scroll buttons for touch devices */
-@media (hover: none) and (pointer: coarse) {
-    button{
-        display: none;
-    }
-}
-.scrollLeft{
-    position: absolute;
-    opacity: 0.4;
-}
-.scrollRight{
-    position: absolute;
-    right: 1rem;
-    opacity: 0.4;
-}
-
 /* if small screen or portrait */
 @media (width < 1000px) or (orientation: portrait){
     section {
         padding-left: 1rem;
-        padding-top: 1rem;  
+        padding-top: 0.5rem;  
     }
 }
 

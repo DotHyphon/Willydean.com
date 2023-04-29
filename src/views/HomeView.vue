@@ -9,6 +9,10 @@ import ScrollingRow from '../components/ScrollingRow.vue';
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+
     <ScrollingRow :displayText="'MyProjects'" :links="myLinks"/>
     <ScrollingRow :displayText="titles[Math.floor(Math.random()*titles.length)]" placeHolder/>
     <ScrollingRow :displayText="titles[Math.floor(Math.random()*titles.length)]" placeHolder/>

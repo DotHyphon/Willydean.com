@@ -10,11 +10,11 @@
             <img id="SmallLogo" src="https://willydean.com/assets/images/LogoSmall.png" height="50" width="80" alt="Logo">
             <button @click="HideNav" id="NavSlider">></button>
             <RouterLink id="Blank" class="bold" to="/">Home</RouterLink>
-            <RouterLink id="Blank" to="/about">Projects</RouterLink>
+            <!-- <RouterLink id="Blank" to="/about">Projects</RouterLink>
             <RouterLink id="Blank" to="/about">What's new</RouterLink>
             <RouterLink id="Blank" to="/about">Test</RouterLink>
             <RouterLink id="Blank" to="/about">Link</RouterLink>
-            <RouterLink id="Blank" to="/about">About Me</RouterLink>
+            <RouterLink id="Blank" to="/about">About Me</RouterLink> -->
         </nav>
     </main>
 </template>
@@ -26,7 +26,7 @@
 <style scoped>
 
 /* large/landscape screens */
-@media (width >= 1000px){
+@media (width >= 0px){
     #SmallLogo {
         display:none;
     }
@@ -55,7 +55,7 @@
 }
 
 /* Small/portrait screens */
-@media (width < 1000px) or (orientation: portrait){
+@media (width < 0px) and (orientation: portrait){
     #LargeLogo {
         display: none;
     }
