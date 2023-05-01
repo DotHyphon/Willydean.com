@@ -63,6 +63,18 @@ export default {
           image: "https://willydean.com/blog/preview.png",
           blank: false,
         },
+        {
+          title: "All Boxed Up",
+          url: "https://willydean.com/allboxedup",
+          image: "https://willydean.com/allboxedup/preview.png",
+          blank: false,
+        },
+        {
+          title: "Turn & Turn",
+          url: "https://willydean.com/turnandturn",
+          image: "https://willydean.com/turnandturn/preview.png",
+          blank: false,
+        },
       ]
     }
   },

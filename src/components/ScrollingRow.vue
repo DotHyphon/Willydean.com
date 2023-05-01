@@ -9,8 +9,8 @@ import { RouterLink } from 'vue-router';
         <div class="container">
             <!-- <button @click="ScrollLeft" class="scrollLeft"><img src='https://willydean.com/assets/images/ArrowLeft.png' placeholder="Arrow"></button> -->
             <!-- <button @click="ScrollRight" class="scrollRight"><img src='https://willydean.com/assets/images/ArrowRight.png' placeholder="Arrow"></button> -->
-            <div class="scrollRow" @mousedown="StartScroll" @mousemove="Scroll" @mouseup="EndScroll" @touchstart="StartScroll" @touchmove="Scroll" @touchend="EndScroll">
-                <component :is="link.blank ? 'span' : 'a'" v-for="link in localLinks" :href="link.url" target="_blank"><img id="poster" :src="link.image" alt=""></component>
+            <div class="scrollRow" @mousedown="StartScroll" @mouseup="EndScroll" @touchstart="StartScroll" @touchend="EndScroll">
+                <component :is="link.blank ? 'span' : 'a'" v-for="link in localLinks" :href="link.url" target="_blank" @click.prevent="" @mousedown="CheckClick" @mouseup="CheckLink"><img id="poster" :src="link.image" alt=""></component>
             </div>
             
         </div>
@@ -27,6 +27,7 @@ export default {
     },
     data(){
         return {
+            tempLink: null,
             checkScroll: false,
             scroll: false,
             scrollPositionX: 0,
@@ -68,6 +69,7 @@ export default {
             }
         },
         Scroll(e) {
+            this.tempLink = null;
             if (this.checkScroll && !this.scroll) {
                 if (e.type == "touchmove") {
                     if (Math.abs(this.scrollPositionX - e.touches[0].clientX) > 20) {
@@ -97,13 +99,25 @@ export default {
             }
         },
         EndScroll(e) {
+            e.preventDefault();
+            this.checkScroll = false;
             this.scroll = false;
+
+        },
+        CheckClick(e) {
+            e.preventDefault();
+            this.tempLink = e.currentTarget.href;
+        },
+        CheckLink(e) {
+            e.preventDefault();
+            if (this.tempLink) {
+               window.open(this.tempLink, '_blank');
+            }
         },
     },
     created(){
         document.body.addEventListener('mouseup', this.EndScroll);
         document.body.addEventListener('touchend', this.EndScroll);
-        document.body.addEventListener('mouseout', this.EndScroll);
         document.body.addEventListener('mousemove', this.Scroll);
         document.body.addEventListener('touchmove', this.Scroll);
         let tempBool = this.placeHolder;
