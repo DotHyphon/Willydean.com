@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router';
             <!-- <button @click="ScrollLeft" class="scrollLeft"><img src='https://willydean.com/assets/images/ArrowLeft.png' placeholder="Arrow"></button> -->
             <!-- <button @click="ScrollRight" class="scrollRight"><img src='https://willydean.com/assets/images/ArrowRight.png' placeholder="Arrow"></button> -->
             <div class="scrollRow" @mousedown="StartScroll" @mouseup="EndScroll" @touchstart="StartScroll" @touchend="EndScroll">
-                <component :is="link.blank ? 'span' : 'a'" v-for="link in localLinks" :href="link.url" target="_blank" @click.prevent="" @mousedown="CheckClick" @mouseup="CheckLink"><img id="poster" :src="link.image" alt=""></component>
+                <component :is="link.blank ? 'span' : 'a'" v-for="link in localLinks" :href="link.url" target="_blank" @click.prevent="" @mousedown="CheckClick" @mouseup="CheckLink" @touchstart="CheckClick" @touchend="CheckLink"><img id="poster" :src="link.image" alt=""></component>
             </div>
             
         </div>
@@ -69,20 +69,22 @@ export default {
             }
         },
         Scroll(e) {
-            this.tempLink = null;
+            
             if (this.checkScroll && !this.scroll) {
                 if (e.type == "touchmove") {
                     if (Math.abs(this.scrollPositionX - e.touches[0].clientX) > 20) {
                         this.scrollPositionX = e.touches[0].clientX
                         this.checkScroll = false;
-                        this.scroll = true;                    
+                        this.scroll = true;    
+                        this.tempLink = null;                
                     }
                 } else {
                     e.preventDefault();
                     if (Math.abs(this.scrollPositionX - e.clientX) > 20) {
                         this.scrollPositionX = e.clientX
                         this.checkScroll = false;
-                        this.scroll = true;                    
+                        this.scroll = true;   
+                        this.tempLink = null;                 
                     }
                 }
             } else if(this.scroll) {
@@ -106,7 +108,9 @@ export default {
         },
         CheckClick(e) {
             e.preventDefault();
-            this.tempLink = e.currentTarget.href;
+            if (e.which == 1 || e.type == "touchstart") {
+                this.tempLink = e.currentTarget.href;
+            }
         },
         CheckLink(e) {
             e.preventDefault();

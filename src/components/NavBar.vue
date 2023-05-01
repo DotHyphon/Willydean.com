@@ -8,8 +8,8 @@
         <nav id="Blank">
             <img id="LargeLogo" src="https://willydean.com/assets/images/Logo.png" height="50" width="200" alt="Logo">
             <img id="SmallLogo" src="https://willydean.com/assets/images/LogoSmall.png" height="50" width="80" alt="Logo">
-            <button @click="HideNav" id="NavSlider">></button>
-            <RouterLink id="Blank" class="bold" to="/">Home</RouterLink>
+            <!-- <button @click="HideNav" id="NavSlider">></button> -->
+            <!-- <RouterLink id="Blank" class="bold" to="/">Home</RouterLink> -->
             <!-- <RouterLink id="Blank" to="/about">Projects</RouterLink>
             <RouterLink id="Blank" to="/about">What's new</RouterLink>
             <RouterLink id="Blank" to="/about">Test</RouterLink>
@@ -38,7 +38,7 @@
     top: 0;
     left: 0;
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     flex-direction:row;
     width: 100%;
@@ -47,7 +47,7 @@
     z-index: 2;
     }
     img {
-        margin-left: 4.7rem; 
+        /* margin-left: 4.7rem;  */
     }
     #NavSlider{
         display: none;
